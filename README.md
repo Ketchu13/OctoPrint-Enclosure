@@ -1,14 +1,7 @@
-Find the plugin useful? Buy me a coffee
-[![Donate](https://img.shields.io/badge/Donate-PayPal-green.svg)](https://www.paypal.me/VitorHenrique/2)
-
-# THIS PLUGIN IS DEPRACATED! 
-I'm moving away from it, and when ready the replacement plugin would be here: https://github.com/vitormhenrique/OctoPrint-Enclosure-V2
 
 # Before opening an issue...
 
 Check the [troubleshooting guide](https://github.com/vitormhenrique/OctoPrint-Enclosure/wiki/Troubleshooting-Guide). Issues with no log, no print screen *will be closed* until the necessary documentation is available.
-
-Also, be aware that upgrading from versions lower than 4.00 will **DELETE** all settings. More information on [release notes](https://github.com/vitormhenrique/OctoPrint-Enclosure/releases/tag/4.00)
 
 # OctoPrint-Enclosure
 
@@ -86,7 +79,7 @@ You should see something like
 [    3.030368] w1-gpio onewire@0: gpio pin 4, external pullup pin -1, parasitic power 0
 ```
 
-If you're using the internal pullup resistor, you'll need to enable it manually by running these Python commands. Or, you can simply configure the sensor inside of the Enclosure plugin, which will do this for you.
+If you're using the internal pullup resistor, you'll need to enable it manually by running these Python commands. Or, you can simply configure the sensor inside the Enclosure plugin, which will do this for you.
 
 You should be able to test your sensor by rebooting your system with `sudo reboot`. When the Pi is back up and you're logged in again, type the commands you see below into a terminal window. When you are in the 'devices' directory, the directory starting '28-' may have a different name, so `cd` to the name of whatever directory is there.
 
@@ -145,7 +138,7 @@ rpi_ws281x really needs sudo, and you need to setup up so your rpi does not ask 
 
 and add `pi ALL=(ALL) NOPASSWD: ALL` to the end of the file.
 
-Also backlist the audio kernel:
+Also, backlist the audio kernel:
 
 `sudo nano /etc/modprobe.d/snd-blacklist.conf`
 
@@ -153,16 +146,25 @@ add the `blacklist snd_bcm2835` to the end of the file.
 
 ### GPIO
 
-This release uses RPi.GPIO to control IO of raspberry pi, it should install and work automatically. If it doesn't please update your octoprint with the latest release of octopi.
-You can use relays / mosfets to control you lights, heater, lockers etc... If you want to control mains voltage I recommend using [PowerSwitch Tail II](http://www.powerswitchtail.com/).
+This release uses RPi.GPIO to control IO of raspberry pi, it should install and work automatically.
+If it doesn't please update your octoprint with the latest release of octopi.
+You can use relays / mosfets to control you lights, heater, lockers etc...
+If you want to control mains voltage I recommend using [PowerSwitch Tail II](https://shop.mchobby.be/fr/cartes-breakout/1289-power-switch-tail-240v-ac-3232100012899.html) (*Discontinued*)
+or [Digital Loggers Iot Relay](https://www.amazon.com/Iot-Relay-Enclosed-High-Power-Raspberry/dp/B00WV7GMA2) (*140 VAC max for this last one*).
 
 ### Relay
 
-The relays module that I used couple [SainSmart 2-Channel Relay Module](https://www.amazon.com/gp/product/B0057OC6D8?ie=UTF8&tag=3dpstuff-20&camp=1789&linkCode=xm2&creativeASIN=B0057OC6D8). Those relays are active low, that means that they will turn on when you put LOW on the output of your pin. In order to not fry your Raspberry Pi pay attention on your wiring connection: remove the jumper link and connect 3.3v to VCC, 5V to JD-VCC and Ground to GND.
+The relays module that I used couple [SainSmart 2-Channel Relay Module](https://www.amazon.com/gp/product/B0057OC6D8?ie=UTF8&tag=3dpstuff-20&camp=1789&linkCode=xm2&creativeASIN=B0057OC6D8).
+Those relays are active low, that means that they will turn on when you put LOW on the output of your pin.
+In order to not fry your Raspberry Pi pay attention on your wiring connection: remove the jumper link and connect 3.3v to VCC, 5V to JD-VCC and Ground to GND.
 
 ### Heater
 
-For heating my enclosure I got a $15 lasko inside my enclosure. I opened it and added a relay to the mains wire. If you’re uncomfortable soldering or dealing with high voltage, please check out the [PowerSwitch Tail II](http://www.powerswitchtail.com/). It is fully enclosed, making it a lot safer.
+For heating my enclosure I got a $15 lasko inside my enclosure.
+I opened it and added a relay to the mains wire.
+If you’re uncomfortable soldering or dealing with high voltage, please check out the [PowerSwitch Tail II](https://shop.mchobby.be/fr/cartes-breakout/1289-power-switch-tail-240v-ac-3232100012899.html) (*Discontinued*)
+or [Digital Loggers Iot Relay](https://www.amazon.com/Iot-Relay-Enclosed-High-Power-Raspberry/dp/B00WV7GMA2) (*140 VAC max for this last one*).
+Fully enclosed relays, make this wiring a lot safer.
 
 **CAUTION: VOLTAGE ON MAINS WIRE CAN KILL YOU, ONLY ATTEMPT TO DO THIS IF YOU KNOW WHAT YOU ARE DOING, AND DO AT YOUR OWN RISK**
 
@@ -180,7 +182,8 @@ http://www.thingiverse.com/thing:1698397
 
 ## Plugin configuration
 
-You need to enable what do you want the plugin to control. Settings from plugin version < 3.6 are not compatible anymore, you will loose all settings after upgrading the plugin.
+You need to enable what do you want the plugin to control.
+Settings from plugin version < 3.6 are not compatible anymore, you will lose all settings after upgrading the plugin.
 
 There are mainly two types of configuration on the plugin, Inputs and Outputs.
 
@@ -196,9 +199,11 @@ Outputs can be set to the following types:
 * Temperature Alarm
 * Gcode Output
 
-Most outputs create UI elements on enclosure plugin tab that let you set values / turn on or off gpios etc. You have the ability to automatically turn on or off outputs when the printer starts or finishes. You can even specify a hour on HH:MM 24 hour format, events will only be schedule when the print starts, and will only be triggered for the very next time that hour occur.
+Most outputs create UI elements on enclosure plugin tab that let you set values / turn on or off gpios etc.
+You have the ability to automatically turn on or off outputs when the printer starts or finishes. You can even specify a hour on HH:MM 24 hour format, events will only be schedule when the print starts, and will only be triggered for the very next time that hour occur.
 
-Temperature Alarm will control another GPIO output after a certain temperature is met. This is useful if you want to add some sort of alarm near your printer, or even build some fire extinguisher on your enclosure. Note that I'm not responsible for any damage caused by fires, you should have proper smoke detectors on your house installed by professionals.
+Temperature Alarm will control another GPIO output after a certain temperature is met.
+This is useful if you want to add some sort of alarm near your printer, or even build some fire extinguisher on your enclosure. Note that I'm not responsible for any damage caused by fires, you should have proper smoke detectors on your house installed by professionals.
 
 Inputs are methods that trigger actions or input values to the plugin (temperature sensor, GPIO trigger)
 
@@ -207,7 +212,8 @@ Inputs can be of two different types:
 * Temperature Sensors
 * GPIO
 
-Temperature Sensors will be used to input temperature and humidity data, they can be linked to a especial output like temperature control and temperature alarm.
+Temperature Sensors will be used to input temperature and humidity data.
+They can be linked to an especial output like temperature control and temperature alarm.
 
 GPIO inputs will trigger events for the plugin, this feature can be used to add buttons to the enclosure and cause pressing those buttons to act on the printer or other pre-configured outputs.
 
@@ -226,7 +232,7 @@ Or use [g-code](https://github.com/vitormhenrique/OctoPrint-Enclosure/wiki/G-COD
 
 ### Tab Order
 
-I often use more this plugin than the time-lapse  tab, so having the plugin appear before the timelapse is better for me.
+I often use more this plugin than the time-lapse tab, so having the plugin appear before the timelapse is better for me.
 
 You can do this by changing the config.yaml file as instructed on [octoprint documentation ](http://docs.octoprint.org/en/master/configuration/config_yaml.html). Unless defined differently via the command line config.yaml is located at `~/.octoprint`.
 
@@ -243,3 +249,4 @@ appearance:
       - terminal
       - plugin_enclosure
 ```
+Or simply install an Ui customization plugin.
