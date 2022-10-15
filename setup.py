@@ -1,4 +1,5 @@
 # coding=utf-8
+from pip._internal.cli.cmdoptions import requirements
 
 ########################################################################################################################
 ### Do not forget to adjust the following variables to your own plugin.
@@ -9,7 +10,7 @@ plugin_identifier = "enclosure"
 # The plugin's python package, should be "octoprint_<plugin identifier>", has to be unique
 plugin_package = "octoprint_enclosure"
 
-# The plugin's human readable name. Can be overwritten within OctoPrint's internal data via __plugin_name__ in the
+# The plugin's human-readable name. Can be overwritten within OctoPrint's internal data via __plugin_name__ in the
 # plugin module
 plugin_name = "OctoPrint-Enclosure"
 
@@ -37,9 +38,9 @@ plugin_requires = ["RPi.GPIO>=0.6.5", "requests>=2.7", "smbus2>=0.3.0", "gpiozer
 
 additional_setup_parameters = {}
 
-#additional_setup_parameters = {"dependency_links": ["git://github.com/adafruit/Adafruit_Python_DHT.git#egg=adafruit_python_dht"]}
+# additional_setup_parameters = {"dependency_links": ["git://github.com/adafruit/Adafruit_Python_DHT.git#egg=adafruit_python_dht"]}
 
-#install_requires = requirements("requirements.txt")
+install_requires = requirements("requirements.txt")
 
 ### --------------------------------------------------------------------------------------------------------------------
 ### More advanced options that you usually shouldn't have to touch follow after this point
