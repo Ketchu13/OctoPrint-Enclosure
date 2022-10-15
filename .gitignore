@@ -2,3 +2,9 @@ venv
 .vscode
 *egg-info*
 *.pyc
+OctoPrint-Enclosure-master.iml
+discord.xml
+Project_Default.xml
+profiles_settings.xml
+modules.xml
+octoprint_enclosure.iml
