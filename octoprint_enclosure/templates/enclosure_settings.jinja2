@@ -26,43 +26,36 @@
       <div class="controls">
         <label class="radio">
           <input type="radio" value="neopixel_indirect" data-bind="checked: output_type, attr: {name: 'output_type_' + $index() }"> {{ _('NeoPixel Indirect') }}
-          </span>
         </label>
       </div>
       <div class="controls">
         <label class="radio">
           <input type="radio" value="neopixel_direct" data-bind="checked: output_type, attr: {name: 'output_type_' + $index() }"> {{ _('NeoPixel Direct') }}
-          </span>
         </label>
       </div>
       <div class="controls">
         <label class="radio">
           <input type="radio" value="ledstrip" data-bind="checked: output_type, attr: {name: 'output_type_' + $index() }"> {{ _('RGB LED Strip') }}
-          </span>
         </label>
       </div>
       <div class="controls">
         <label class="radio">
           <input type="radio" value="temp_hum_control" data-bind="checked: output_type, attr: {name: 'output_type_' + $index() }"> {{ _('Temperature / Humidity Control') }}
-          </span>
         </label>
       </div>
       <div class="controls">
         <label class="radio">
           <input type="radio" value="temperature_alarm" data-bind="checked: output_type, attr: {name: 'output_type_' + $index() }"> {{ _('Temperature Alarm') }}
-          </span>
         </label>
       </div>
       <div class="controls">
         <label class="radio">
           <input type="radio" value="gcode_output" data-bind="checked: output_type, attr: {name: 'output_type_' + $index() }"> {{ _('Gcode') }}
-          </span>
         </label>
       </div>
       <div class="controls">
         <label class="radio">
           <input type="radio" value="shell_output" data-bind="checked: output_type, attr: {name: 'output_type_' + $index() }"> {{ _('Shell Script') }}
-          </span>
         </label>
       </div>
     </div>
@@ -78,7 +71,7 @@
     <div class="control-group">
       <label class="control-label">{{ _('Id') }}</label>
       <div class="controls">
-        <input type="text" class="input-block-level" data-bind="value: index_id" disabled="true">
+        <input type="text" class="input-block-level" data-bind="value: index_id" disabled="disabled">
         <span class="help-inline">Id used for API control</span>
       </div>
     </div>
@@ -289,7 +282,7 @@
       <label class="control-label" for="settings-enclosure-gpio-i2c-bus">{{ _('I2C Bus') }}</label>
       <div class="controls">
         <input type="text" class="input-block-level" data-bind="value: gpio_i2c_bus" id="settings-enclosure-gpio-i2c-bus">
-        <span class="help-inline">This value should remain 1 unless you've used dtoverlay=i2c-gpio or you are using another bus.
+        <span class="help-inline">This value should remain 1 unless you've used dtoverlay=i2c-gpio, or you are using another bus.
         </span>
       </div>
     </div>
@@ -533,7 +526,7 @@
     <div class="control-group">
       <label class="control-label" for="settings-enclosure-filament-sensor">{{ _('Gcode') }}</label>
       <div class="controls">
-        <textarea rows="4" class="block" data-bind="value: gcode"></textarea>
+        <textarea id="settings-enclosure-filament-sensor" rows="4" class="block" data-bind="value: gcode"></textarea>
         <span class="help-inline">GCODE that will be sent to the printer. You should add
           <code>ENTER</code> on the end of every line sent to the printer</span>
       </div>
@@ -541,7 +534,8 @@
     <!-- /ko -->
 
     <div class="control-group">
-      <a title="Delete IO" class="btn btn-danger pull-right" data-bind="click: function() { $parent.removeRpiOutput($data) }">
+      <a title="Delete IO" class="btn btn-danger pull-right"
+         data-bind="click: function() { $parent.removeRpiOutput($data) }">
         <i class="icon-trash"></i>
       </a>
     </div>
@@ -552,7 +546,8 @@
     </div>
   </div>
   <div class="control-group">
-    <button class="btn pull-right" data-bind="click: function() { $root.addRpiOutput(); }">Add Outputs...</button>
+    <button class="btn pull-right"
+            data-bind="click: function() { $root.addRpiOutput(); }">Add Outputs...</button>
   </div>
 </form>
 <h4>{{ _('Raspberry Pi Inputs') }}</h4>
@@ -601,7 +596,7 @@
       <div class="control-group">
         <label class="control-label" for="settings-enclosure-dhtModel">{{ _('Sensor Type') }}</label>
         <div class="controls">
-          <select data-bind="value: temp_sensor_type">
+          <select id="settings-enclosure-dhtModel" data-bind="value: temp_sensor_type">
             <option value="">Select Sensor</option>
             <option value="11">DHT11</option>
 	    <option value="20">DHT20</option>
@@ -632,7 +627,7 @@
         <label class="control-label" for="settings-enclosure-temp-i2c-bus">{{ _('I2C Bus') }}</label>
         <div class="controls">
           <input type="text" class="input-block-level" data-bind="value: temp_i2c_bus" id="settings-enclosure-temp-i2c-bus">
-          <span class="help-inline">This value should remain 1 unless you've used dtoverlay=i2c-gpio or you are using another bus.
+          <span class="help-inline">This value should remain 1 unless you've used dtoverlay=i2c-gpio, or you are using another bus.
           </span>
         </div>
       </div>
@@ -659,14 +654,14 @@
       <div class="control-group">
         <label class="control-label" for="settings-enclosure-dhtPin">{{ _('Sensor Pin') }}</label>
         <div class="controls">
-          <input type="text" class="input-block-level" data-bind="value: gpio_pin" value="4">
+          <input id="settings-enclosure-dhtPin" type="text" class="input-block-level" data-bind="value: gpio_pin" value="4">
           <span class="help-inline">GPIO pin for temperature sensor, recommended to use 4 as DS18B20 has default support to pin #4 (BCM)</span>
         </div>
       </div>
-      <div class"control-group">
-        <label class="control-label" for="settings-enclosure-dhtPin">{{ _('Input Pull Resistor') }}</label>
+      <div class="control-group">
+        <label class="control-label" for="settings-enclosure-pullup">{{ _('Input Pull Resistor') }}</label>
         <div class="controls">
-          <select data-bind="value: input_pull_resistor">
+          <select id="settings-enclosure-pullup" data-bind="value: input_pull_resistor">
             <option value="" selected="selected">None</option>
             <option value="input_pull_up">Input Pullup</option>
           </select>
@@ -674,9 +669,9 @@
         </div>
       </div>
       <div class="control-group">
-        <label class="control-label" for="settings-enclosure-dhtPin">{{ _('DS18B20 Serial') }}</label>
+        <label class="control-label" for="settings-enclosure-ds18b20_serial">{{ _('DS18B20 Serial') }}</label>
         <div class="controls">
-          <input type="text" class="input-block-level" data-bind="value: ds18b20_serial" value="">
+          <input id="settings-enclosure-ds18b20_serial" type="text" class="input-block-level" data-bind="value: ds18b20_serial" value="">
           <span class="help-inline">DS18B20 serial value, needs to be used to have support for multiple sensors, read documentation on github page
             for more information.  The serial is typically in the form of 28-0123456789ab.</span>
         </div>
@@ -684,26 +679,26 @@
       <!-- /ko -->
       <!-- ko if: ($data.temp_sensor_type() == "si7021") || ($data.temp_sensor_type() == "20") || ($data.temp_sensor_type() == "bme280") || ($data.temp_sensor_type() == "am2320") || ($data.temp_sensor_type() == "aht10") || ($data.temp_sensor_type() == "tmp102") || ($data.temp_sensor_type() == "mcp9808") -->
       <div class="control-group">
-        <label class="control-label" for="settings-enclosure-dhtPin">{{ _('Sensor Pin') }}</label>
+        <label class="control-label" for="settings-enclosure-sensorpin">{{ _('Sensor Pin') }}</label>
         <div class="controls">
-          <input type="text" class="input-block-level" value="SCL / SDA" disabled="true">
+          <input id="settings-enclosure-sensorpin" type="text" class="input-block-level" value="SCL / SDA" disabled="disabled">
           <span class="help-inline">GPIO pin for temperature sensor need to connect the sensor to I2C. SCL Clock to GPIO 3 (SCL) and SDA Data to GPIO
             2 (SDA)
           </span>
         </div>
       </div>
       <div class="control-group">
-        <label class="control-label" for="settings-enclosure-dhtPin">{{ _('Sensor Address') }}</label>
+        <label class="control-label" for="settings-enclosure-sensor_address">{{ _('Sensor Address') }}</label>
         <div class="controls">
-          <input type="text" class="input-block-level" data-bind="value: temp_sensor_address">
+          <input id="settings-enclosure-sensor_address" type="text" class="input-block-level" data-bind="value: temp_sensor_address">
           <span class="help-inline">Sensor address in HEX value, you can find it by running
             <code>i2cdetect -y 1</code> on your Raspberry Pi</span>
         </div>
       </div>
       <div class="control-group">
-        <label class="control-label" for="settings-enclosure-dhtPin">{{ _('i2c Bus') }}</label>
+        <label class="control-label" for="settings-enclosure-i2cbus">{{ _('i2c Bus') }}</label>
         <div class="controls">
-          <input type="text" class="input-block-level" data-bind="value: temp_sensor_i2cbus">
+          <input id="settings-enclosure-i2cbus" type="text" class="input-block-level" data-bind="value: temp_sensor_i2cbus">
           <span class="help-inline">This value should remain 1 unless you've used dtoverlay=i2c-gpio.
           </span>
         </div>
@@ -713,7 +708,7 @@
       <div class="control-group">
         <label class="control-label" for="settings-enclosure-dhtPin">{{ _('Sensor Pin') }}</label>
         <div class="controls">
-          <input type="text" class="input-block-level" value="MISO / SCLK" disabled="true">
+          <input type="text" class="input-block-level" value="MISO / SCLK" disabled="disabled">
           <span class="help-inline">GPIO pin for temperature sensor need to connect the sensor to SPI. Serial Clock to GPIO 1 (SCLK) and Master In/Slave Out Data to GPIO
             9 (MISO)
           </span>
@@ -753,10 +748,12 @@
     <div class="control-group">
       <label class="control-label">{{ _('Action Type') }}</label>
       <div class="controls">
-        <input type="radio" value="output_control" data-bind="checked: action_type, attr: {name: 'actionType_' + $index() }"> {{ _('Output Control') }}
+        <input type="radio" value="output_control"
+               data-bind="checked: action_type, attr: {name: 'actionType_' + $index() }"> {{ _('Output Control') }}
       </div>
       <div class="controls">
-        <input type="radio" value="printer_control" data-bind="checked: action_type, attr: {name: 'actionType_' + $index() }"> {{ _('Printer') }}
+        <input type="radio" value="printer_control"
+               data-bind="checked: action_type, attr: {name: 'actionType_' + $index() }"> {{ _('Printer') }}
       </div>
       <div class="control-group">
         <div class="controls">
@@ -766,13 +763,14 @@
             be Pause \ Resume \ Cancel a printer_control job, change the filament or disable Temperature Control. You can
             use the "change filament" action and set up the input GPIO acording to your sensor, for example, if your filament
             sensor connects to ground when detects the end of the filament, you should choose PULL UP resistors and detect
-            the event on the falling edge.</span>
+            the event on the falling edge.
+          </span>
           <!-- /ko -->
           <!-- ko if: ($data.action_type() == "output_control")  -->
           <span class="help-inline">
             <span class="label label-info">Info:</span> Action will control GPIO outputs when a condition is met, for example detect a press of a button.
             You can use this to control any previous configured OUTPUTS, basically beeing able to control your lights / fan
-            / printer using mechanical buttons buttons instead of the octoprint interface. You can only control REGULAR outputs.
+            / printer using mechanical buttons instead of the octoprint interface. You can only control REGULAR outputs.
           </span>
           <!-- /ko -->
         </div>
@@ -784,7 +782,7 @@
       <div class="control-group">
         <label class="control-label" for="settings-enclosure-io1">{{ _('Input IO Number') }}</label>
         <div class="controls">
-          <input type="text" class="input-block-level" data-bind="value: gpio_pin">
+          <input id="settings-enclosure-io1" type="text" class="input-block-level" data-bind="value: gpio_pin">
           <span class="help-inline">Input GPIO that will detect the event that should trigger the action. For example if you have a filament sensor
             you put the GPIO pin that the sensor is connected. This can also be a press of a button or any other signal that
             you want to detect. You can not use GPIO 4 here if you are using temperature sensor DS18B20</span>
@@ -808,7 +806,7 @@
             <option value="rise">Rise</option>
             <option value="fall">Fall</option>
           </select>
-          <span class="help-inline">Do you want to trigger the event on the rise or falling edge? If you signal is active low, that means it should run
+          <span class="help-inline">Do you want to trigger the event on the rise or falling edge? If your signal is active low, that means it should run
             the action when it receives a low signal (ground), you should choose FALLING EDGE.</span>
         </div>
       </div>
@@ -885,22 +883,28 @@
         <span class="help-inline">Enable and disable temperature on navbar</span>
       </div>
       <div class="controls">
-		    <label class="checkbox">
-				  <input type="checkbox" data-bind="checked: show_graph_temp"> {{ _('Show temperature in graph') }}
-			  </label>
-			  <span class="help-inline">Enable to show temperature in temperature graph, when a printer is connected.
-        <!-- ko if: ($data.show_graph_temp())  -->
-        <p><i><strong>Note:</strong>This feature currently requires a custom graph plugin like <a href="https://github.com/jneilliii/OctoPrint-PlotlyTempGraph" target="_blank">PlotlyTempGraph</a></i></span></p>
-        <!-- /ko -->
-		  </div>
+          <label class="checkbox">
+              <input type="checkbox" data-bind="checked: show_graph_temp"> {{ _('Show temperature in graph') }}
+          </label>
+          <span class="help-inline">Enable to show temperature in temperature graph, when a printer is connected.
+            <!-- ko if: ($data.show_graph_temp())  -->
+              <i>
+                <strong>Note:</strong>This feature currently requires a custom graph plugin like <a href="https://github.com/jneilliii/OctoPrint-PlotlyTempGraph" target="_blank">PlotlyTempGraph</a>
+              </i>
+            <!-- /ko -->
+          </span>
+      </div>
       <div class="controls">
         <label class="checkbox">
           <input type="checkbox" data-bind="checked: show_graph_humidity"> {{ _('Show humidity in graph') }}
         </label>
         <span class="help-inline">Enable to show humidity in temperature graph, when a printer is connected.
-        <!-- ko if: ($data.show_graph_humidity())  -->
-        <p><i><strong>Note:</strong>This feature currently requires a custom graph plugin like <a href="https://github.com/jneilliii/OctoPrint-PlotlyTempGraph" target="_blank">PlotlyTempGraph</a></i></span></p>
-        <!-- /ko -->
+          <!-- ko if: ($data.show_graph_humidity())  -->
+          <i>
+            <strong>Note:</strong>This feature currently requires a custom graph plugin like <a href="https://github.com/jneilliii/OctoPrint-PlotlyTempGraph" target="_blank">PlotlyTempGraph</a>
+          </i>
+          <!-- /ko -->
+        </span>
       </div>
     </div>
     <!-- /ko -->
@@ -974,7 +978,7 @@
           <label class="checkbox">
             <input type="checkbox" data-bind="checked: settingsViewModel.settings.plugins.enclosure.use_board_pin_number"> {{ _('Use Board Pin #') }}
           </label>
-          <span class="help-inline">Use BOARD pin numbers instead of BCM pin numbers</span>
+          <span class="help-inline">Use BOARD pin-numbers instead of BCM pin numbers</span>
         </div>
       </div>
       <div class="control-group">
@@ -1047,3 +1051,4 @@
       <!-- /ko -->
     </form>
   </div>
+</form>

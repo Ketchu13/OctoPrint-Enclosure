@@ -17,7 +17,6 @@
                 <th class="temperature_target" title="{{ _('Current target temperature') }}">{{ _('Target') }}</th>
                 <!-- /ko -->
             </tr>
-
             <!-- ko foreach: $root.rpi_inputs_temperature_sensors() -->
             <tr>
                 <th class="temperature_sensor" data-bind="text: label, attr: {title: label, rowspan: $root.calculateRowSpan(index_id)}"></th>
